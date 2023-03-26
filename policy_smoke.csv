@@ -1,0 +1,194 @@
+country,country_code,continent,ban_policy_change,tax_policy_change,support_policy_change,prevalence_rate_change,initial_ban_policy,initial_support_policy,initial_tax_policy
+Afghanistan,AFG,Asia,1,0,0,-5.30000114440918,4,3,2
+Albania,ALB,Europe,0,0,1,-5,5,3,4
+Algeria,DZA,Africa,0,0,0,-0.5,4,3,3
+Andorra,AND,Europe,0,1,0,-2,2,4,4
+Angola,AGO,Africa,0,0,1,NA,2,3,2
+Antigua and Barbuda,ATG,North America,3,0,0,NA,2,3,2
+Argentina,ARG,South America,2,1,0,-4,2,4,4
+Armenia,ARM,Asia,0,1,1,-2.8000011444091797,2,3,2
+Australia,AUS,Oceania,0,1,0,-4.200000762939453,4,5,4
+Austria,AUT,Europe,0,1,0,-9.999998092651367,4,4,4
+Azerbaijan,AZE,Asia,1,1,0,-2,4,3,2
+Bahamas,BHS,North America,0,0,1,0,2,3,3
+Bahrain,BHR,Asia,1,1,-1,-2.90000057220459,4,5,3
+Bangladesh,BGD,Asia,0,1,0,-8.799999237060547,4,3,3
+Barbados,BRB,North America,0,0,1,-0.6999998092651367,2,3,3
+Belarus,BLR,Europe,0,1,0,-4.899999618530273,4,4,3
+Belgium,BEL,Europe,0,0,0,-4.100000381469727,4,4,5
+Belize,BLZ,North America,0,-1,1,-2.5,2,3,4
+Benin,BEN,Africa,1,0,-1,-3.5,4,3,2
+Bolivia,BOL,South America,0,0,-1,-6.300000190734863,4,3,3
+Bosnia and Herzegovina,BIH,Europe,0,1,1,-4.799999237060547,4,3,4
+Botswana,BWA,Africa,0,-1,1,-5,4,3,4
+Brazil,BRA,South America,1,1,0,-4.199999809265137,4,5,4
+Brunei,BRN,Asia,0,NA,0,-0.1999988555908203,4,4,NA
+Bulgaria,BGR,Europe,0,0,0,-3.5,4,4,5
+Burkina Faso,BFA,Africa,0,0,0,-5.600000381469728,4,3,3
+Burundi,BDI,Africa,2,-1,0,-4.40000057220459,2,2,4
+Cambodia,KHM,Asia,2,1,0,-8.200000762939453,2,3,2
+Cameroon,CMR,Africa,0,0,1,-2.1999998092651367,4,3,2
+Canada,CAN,North America,0,0,0,-5.6999988555908185,4,5,4
+Cape Verde,CPV,Africa,0,0,0,-3.5,4,4,2
+Central African Republic,CAF,Africa,0,0,-1,NA,2,3,3
+Chad,TCD,Africa,0,1,1,-2.1999998092651367,5,2,2
+Chile,CHL,South America,0,0,0,-7.19999885559082,4,3,5
+China,CHN,Asia,0,1,1,-0.5,4,3,3
+Colombia,COL,South America,0,2,1,-2.5999994277954084,5,3,3
+Comoros,COM,Africa,-2,-1,1,-6.900001525878906,4,2,4
+Congo,COG,Africa,1,0,0,1.5,4,4,3
+Cook Islands,COK,Oceania,0,1,0,NA,4,4,3
+Costa Rica,CRI,North America,2,1,0,-3.5,2,4,3
+Cote d'Ivoire,CIV,Africa,0,0,1,-3.5,2,3,3
+Croatia,HRV,Europe,0,1,0,1.2999992370605469,4,4,4
+Cuba,CUB,North America,0,-1,0,-8.299999237060547,2,4,5
+Cyprus,CYP,Europe,0,0,0,-2.200000762939453,4,4,4
+Czechia,CZE,Europe,0,0,1,-1.3999996185302734,4,4,5
+Democratic Republic of Congo,COD,Africa,1,0,0,-2.3999996185302717,4,3,3
+Denmark,DNK,Europe,0,0,1,-7.399999618530273,4,4,4
+Djibouti,DJI,Africa,0,0,-1,NA,5,3,3
+Dominica,DMA,North America,0,-1,-1,NA,2,3,3
+Dominican Republic,DOM,North America,0,0,0,-3,2,3,4
+Ecuador,ECU,South America,2,0,0,-2.8999996185302717,2,4,4
+Egypt,EGY,Africa,0,1,0,0.10000038146972656,4,4,4
+El Salvador,SLV,North America,2,-1,1,-3,2,4,4
+Equatorial Guinea,GNQ,Africa,0,1,0,NA,2,2,2
+Eritrea,ERI,Africa,0,0,0,-2.3000001907348633,5,2,4
+Estonia,EST,Europe,0,0,1,-6.700000762939453,4,3,5
+Eswatini,SWZ,Africa,2,1,0,-1.1999998092651367,2,4,3
+Ethiopia,ETH,Africa,2,-1,1,-0.7000002861022949,2,3,3
+Fiji,FJI,Oceania,0,0,2,-4,4,2,3
+Finland,FIN,Europe,0,0,0,-5.599998474121094,4,4,5
+France,FRA,Europe,0,0,0,-0.20000076293945313,4,4,5
+Gabon,GAB,Africa,2,0,0,NA,2,3,2
+Gambia,GMB,Africa,1,-1,0,-4.199999809265135,4,2,4
+Georgia,GEO,Asia,2,1,1,-0.5,2,3,3
+Germany,DEU,Europe,0,0,0,-5.799999237060547,4,4,4
+Ghana,GHA,Africa,3,1,1,-1.3000001907348633,2,3,2
+Greece,GRC,Europe,0,0,1,-8.400001525878906,4,3,5
+Grenada,GRD,North America,0,0,1,NA,2,3,3
+Guatemala,GTM,North America,0,-1,0,-1.5,2,4,4
+Guinea,GIN,Africa,1,0,-1,NA,4,3,2
+Guinea-Bissau,GNB,Africa,0,0,0,-3.3999996185302734,2,2,2
+Guyana,GUY,South America,3,0,0,-6.499999999999998,2,4,3
+Haiti,HTI,North America,0,0,-1,-1.799999713897705,2,3,3
+Honduras,HND,North America,0,0,1,NA,4,3,3
+Hungary,HUN,Europe,0,-1,0,-2.3999977111816406,4,4,5
+Iceland,ISL,Europe,0,0,0,-6.499999999999998,4,3,4
+India,IND,Asia,0,1,2,-9.999998092651367,4,3,3
+Indonesia,IDN,Asia,0,0,1,0.90000152587890625,2,3,4
+Iran,IRN,Asia,0,0,-1,-3,5,5,2
+Iraq,IRQ,Asia,0,0,1,-1.1000003814697266,4,3,2
+Ireland,IRL,Europe,0,0,0,-5.700000762939453,4,5,5
+Israel,ISR,Asia,0,1,-1,-4.299999237060547,2,5,4
+Italy,ITA,Europe,0,0,0,-1.2000007629394531,4,4,5
+Jamaica,JAM,North America,0,-1,1,-3.1000003814697266,2,4,4
+Japan,JPN,Asia,0,0,0,-5.299999237060547,2,4,4
+Jordan,JOR,Asia,0,0,0,2,4,4,5
+Kazakhstan,KAZ,Asia,0,1,0,-4.600000381469727,4,4,3
+Kenya,KEN,Africa,0,0,1,-3.1999998092651367,5,3,4
+Kiribati,KIR,Oceania,3,-1,1,-11,2,3,4
+Kuwait,KWT,Asia,1,-1,1,-1,4,4,3
+Kyrgyzstan,KGZ,Asia,0,0,1,-1.7999992370605469,4,3,3
+Laos,LAO,Asia,0,0,-1,-8,4,3,2
+Latvia,LVA,Europe,0,0,0,-2.8999977111816406,4,4,5
+Lebanon,LBN,Asia,2,0,0,-0.6999969482421875,2,4,3
+Lesotho,LSO,Africa,0,1,0,-2.8000011444091797,2,4,3
+Liberia,LBR,Africa,0,1,0,-3.1000003814697266,2,3,2
+Libya,LBY,Africa,0,0,1,NA,5,3,2
+Lithuania,LTU,Europe,0,-1,0,-4.100002288818359,4,4,5
+Luxembourg,LUX,Europe,0,0,1,-4,4,4,4
+Madagascar,MDG,Africa,0,0,0,-7.000001907348633,5,3,5
+Malawi,MWI,Africa,0,-1,0,-4.699999809265137,2,2,3
+Malaysia,MYS,Asia,0,0,0,-2.8000011444091797,4,4,4
+Maldives,MDV,Asia,0,1,1,-4.700000762939453,5,3,3
+Mali,MLI,Africa,-1,1,1,-3.0000000000000018,5,3,2
+Malta,MLT,Europe,0,0,0,-4.100000381469727,4,4,5
+Marshall Islands,MHL,Oceania,0,1,0,0,2,4,3
+Mauritania,MRT,Africa,2,0,0,-4,2,2,2
+Mauritius,MUS,Africa,0,1,0,-2.200000762939453,5,4,4
+Mexico,MEX,North America,0,0,1,-4.3000011444091815,2,4,4
+Micronesia (country),FSM,Oceania,2,-1,1,NA,2,3,4
+Moldova,MDA,Europe,1,1,1,1.8000011444091797,4,3,3
+Mongolia,MNG,Asia,1,0,0,-2,4,4,3
+Montenegro,MNE,Europe,0,1,0,-3.1000022888183594,4,2,4
+Morocco,MAR,Africa,0,0,0,-3.200000762939455,4,3,4
+Mozambique,MOZ,Africa,0,0,1,-5.699999809265137,4,3,3
+Myanmar,MMR,Asia,0,0,1,-9.5,4,3,3
+Namibia,NAM,Africa,0,0,1,-4,4,3,3
+Nauru,NRU,Oceania,0,0,0,-6.299999237060547,4,3,3
+Nepal,NPL,Asia,1,0,0,-12.099998474121094,4,4,3
+Netherlands,NLD,Europe,0,0,1,-4.899999618530273,4,4,4
+New Zealand,NZL,Oceania,0,0,0,-5.90000057220459,4,5,5
+Nicaragua,NIC,North America,0,0,0,NA,2,3,3
+Niger,NER,Africa,0,0,0,-0.7999997138977051,5,3,3
+Nigeria,NGA,Africa,3,1,0,-1.9999999999999996,2,4,2
+Niue,NIU,Oceania,3,1,0,NA,2,4,4
+North Korea,PRK,Asia,0,0,0,-4.5,2,4,2
+North Macedonia,MKD,Europe,0,1,1,NA,4,3,4
+Norway,NOR,Europe,0,0,0,-9.600000381469727,4,4,4
+Oman,OMN,Asia,2,0,0,0.20000028610229492,2,3,3
+Pakistan,PAK,Asia,2,0,1,-6.600000381469727,2,3,4
+Palau,PLW,Oceania,2,0,0,-3.5,2,4,4
+Palestine,PSE,Asia,0,0,0,NA,4,3,5
+Panama,PAN,North America,0,0,-1,-2.8999996185302734,5,5,4
+Papua New Guinea,PNG,Oceania,0,1,1,-6,4,2,3
+Paraguay,PRY,South America,2,0,0,-6.100000381469725,2,4,2
+Peru,PER,South America,0,0,1,-7.59999942779541,2,3,3
+Philippines,PHL,Asia,0,1,0,-4.899999618530273,4,4,3
+Poland,POL,Europe,0,0,0,-6.099998474121094,4,4,5
+Portugal,PRT,Europe,0,-1,0,0,4,4,5
+Qatar,QAT,Asia,1,0,0,-0.6000003814697283,4,4,3
+Romania,ROU,Europe,0,-1,-1,-3,4,5,5
+Russia,RUS,Europe,3,1,1,-2.6999988555908203,2,3,3
+Rwanda,RWA,Africa,0,1,0,-4.399999618530272,2,2,3
+Saint Kitts and Nevis,KNA,North America,0,0,0,NA,2,3,2
+Saint Lucia,LCA,North America,0,1,1,NA,2,3,3
+Saint Vincent and the Grenadines,VCT,North America,0,0,0,NA,2,3,2
+Samoa,WSM,Oceania,0,-1,1,-5.5,4,3,4
+San Marino,SMR,Europe,0,0,-1,NA,4,3,4
+Sao Tome and Principe,STP,Africa,2,0,0,-0.7999997138977051,2,2,3
+Saudi Arabia,SAU,Asia,3,1,1,0,2,4,3
+Senegal,SEN,Africa,3,0,2,-2.7999997138977033,2,3,3
+Serbia,SRB,Europe,0,0,0,-2.200000762939453,4,4,5
+Seychelles,SYC,Africa,0,0,1,-3.3999996185302734,5,3,4
+Sierra Leone,SLE,Africa,0,0,0,-9.999999046325684,2,2,2
+Singapore,SGP,Asia,0,0,0,0.10000038146972656,4,5,4
+Slovakia,SVK,Europe,0,0,1,-0.10000038146972656,4,4,5
+Slovenia,SVN,Europe,1,0,0,-1.2000007629394531,4,4,5
+Solomon Islands,SLB,Oceania,0,0,1,-2.799999237060547,4,3,3
+Somalia,SOM,Africa,0,0,0,NA,2,2,2
+South Africa,ZAF,Africa,0,1,1,-1.2000007629394531,4,3,3
+South Korea,KOR,Asia,0,0,0,-5.600000381469727,2,5,4
+South Sudan,SSD,Africa,0,0,0,NA,2,2,3
+Spain,ESP,Europe,0,0,0,-3.799999237060547,5,4,5
+Sri Lanka,LKA,Asia,0,0,1,-2.5,4,3,4
+Sudan,SDN,Africa,0,0,1,NA,4,2,4
+Suriname,SUR,South America,3,0,1,NA,2,3,3
+Sweden,SWE,Europe,0,0,1,-7.5,4,4,4
+Switzerland,CHE,Europe,0,0,0,-1.1999988555908203,2,4,4
+Syria,SYR,Asia,0,0,0,NA,4,4,3
+Tajikistan,TJK,Asia,0,0,-1,NA,4,3,3
+Tanzania,TZA,Africa,0,0,-1,-6.300000190734863,4,4,3
+Thailand,THA,Asia,0,1,0,-3.799999237060547,4,4,4
+Timor,TLS,Asia,2,-1,2,-6.200000762939453,2,2,3
+Togo,TGO,Africa,3,0,-1,-2.700000286102295,2,3,2
+Tonga,TON,Oceania,0,0,1,-0.9999980926513672,4,3,4
+Trinidad and Tobago,TTO,North America,0,0,1,NA,2,3,3
+Tunisia,TUN,Africa,0,-1,1,-4,4,3,5
+Turkey,TUR,Asia,1,0,0,-0.8000011444091797,4,5,5
+Turkmenistan,TKM,Asia,2,-1,0,-2.3999996185302734,2,4,4
+Tuvalu,TUV,Oceania,0,1,-1,-5.799999237060547,5,4,2
+Uganda,UGA,Africa,3,0,-1,-5.40000057220459,2,4,3
+Ukraine,UKR,Europe,0,0,0,-4.899999618530273,4,3,4
+United Arab Emirates,ARE,Asia,1,1,0,NA,4,5,3
+United Kingdom,GBR,Europe,0,0,0,-8,4,4,5
+United States,USA,North America,0,0,0,-4.600000381469727,2,5,3
+Uruguay,URY,South America,1,0,-1,-5.5,4,5,4
+Uzbekistan,UZB,Asia,2,0,1,-3.1000003814697266,2,3,3
+Vanuatu,VUT,Oceania,0,0,0,-3.0999984741210938,5,3,4
+Venezuela,VEN,South America,0,0,0,NA,2,4,4
+Vietnam,VNM,Asia,0,0,1,-2,4,3,3
+Yemen,YEM,Asia,1,0,0,-2.8999996185302734,4,3,4
+Zambia,ZMB,Africa,0,0,1,-2.100000381469725,2,3,3
+Zimbabwe,ZWE,Africa,0,-1,1,-3.5,2,3,4
