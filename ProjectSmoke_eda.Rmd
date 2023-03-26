@@ -1,0 +1,309 @@
+---
+title: "The effects of policies on smoking prevalence rate "
+output:  
+  pdf_document:
+          number_sections: yes
+fig_caption: yes
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, comment = NA, message = FALSE, warning = FALSE)
+```
+
+```{r loadpackages, eval=TRUE, warning=FALSE, message=FALSE}
+
+library(tidyverse)
+library(moderndive)
+library(gapminder)
+library(skimr)
+#library(mvtnorm)
+library(gridExtra)
+library(kableExtra)
+
+```
+
+# Introduction {#sec:intro}
+
+Smoking has become one of the most serious health problems in the world. Many people around the world have been affected, to varying degrees, by their health due to smoking. Governments all over the world have implemented policies against smoking. Effective policies and measures should be emphasized and preferred to other policies. Data were collected on the prevalence of current tobacco use (% of adults) in different countries around the world from the website *ourworldindata.org*, as well as data on the policies enforced by these countries, specifically, bans on tobacco advertising, taxes on cigarettes, and support to quit smoking. Main question of interest-
+
+How are different policies adopted by the countries against smoking associated with changes in smoking prevalence rates? 
+
+
+Section \ref{sec:dw} contains the tidying and wrangling processes of the datasets mentioned above. Section \ref{sec:eda} illustrates an exploratory data analysis of smoking population percentage changes in different continents, and the relationship between changes in smoking prevalence rates and three smoking control policies. Section \ref{sec:con} states the conclusion of the report for the R file.
+
+
+
+# Data Wrangling {#sec:dw}
+Research question is interested in the change in the smoking prevalence rate, and its relationship with the change of smoking control policies. Five datasets  related to the smoking prevalence rate and the smoking control policies in different countries over time are integrated to generate a clean dataset for data analysis. The time frame considered in this report: 2010 - 2018.
+
+Variable description :- 
+Tax on retail price (in tax_data dataframe):
+  1 = Data not reported
+  2 = <= 25% of retail price is tax
+  3 = 26-50% of retail price is tax
+  4 = 51-75% of retail price is tax
+  5 = >=76% of retail price is tax
+
+Ban on tobacco advertising (in ban_data dataframe) :-
+  1 = Data not reported
+  2 = Complete absence of ban
+  3 = ban on national TV, radio, and print media only
+  4 = Ban on national tv, radio and print as well as on some but not other forms of direct and/or indirect advertising
+  5 = Ban on all forms of direct and indirect advertising.
+
+Support to quit smoking (in support_data dataframe) :-
+  1 = Data nor reported
+  2 = None
+  3 = Nicotine replacement therapy and /or some cessation services (no cost covered)
+  4 = Nicotine replacement therapy and/or some cessation services (at least one of which is cost-covered)
+  5 = National quit line, and both Nicotine replacement therapy and some cessation services cost-covered
+
+The following are the methods and approaches used to organize the datasets, as well as the resulting clean dataset that was obtained.
+
+```{r, echo=TRUE, eval = TRUE}
+smoke_data <- read_csv("smoke_data.csv")
+support_data <- read_csv("support_data.csv")
+tax_data <- read_csv("tax_data.csv")
+ban_data <- read_csv("ban_data.csv")
+for_continent <- read_csv("adults-smoking-2007-2018.csv")
+
+#The control group would be the countries who did not change their policy in this time frame.
+#We will compare the variation between the various ban and tax policies.
+
+#response variable in smoke_data
+#Indicator variables will be the explanatory variables
+ban_support = ban_data %>% left_join(support_data, by = c('Entity', 'Year'))
+
+
+#years prior to 2008 are not taken
+ban_support = ban_support %>% filter(Year > 2007)
+
+#tax data has 12 observations less than ban_support data:
+#might be that tax data for 2 countries are not reported or missing
+ban_support %>% anti_join(tax_data, by = c('Entity', 'Year'))
+
+policy_data = ban_support %>% full_join(tax_data, by = c('Entity', 'Year'))
+
+
+#cleaner column names:
+policy_data = policy_data %>% 
+  rename(country = Entity,
+        country_code = Code.x,
+        year = Year,
+        ban_policy = `Indicator:Enforce bans on tobacco advertising`,
+        support_policy = `Indicator:Offer help to quit tobacco use`,
+        tax_policy = `Indicator:Raise taxes on tobacco`) %>% 
+  select(-c(Code.y, Code))
+
+
+#more cleaning
+# 1 in any policy variable means data not reported...make them NA and use fill strategy
+policy_data2 = policy_data %>% 
+  map_dfc(function(x) ifelse(x == 1, NA, x))
+
+#missing value strategy : 
+#Use the most recent value within each country in the given time frame
+policy_data2 <- policy_data2 %>% 
+  group_by(country) %>% 
+  fill(c(ban_policy, support_policy, tax_policy), .direction = 'downup')
+
+#see if any country has any missing values remaining
+policy_data2[!complete.cases(policy_data2), ]    #Bhutan, Brunei, Monaco
+
+#check if Bhutan, Brunei and Monaco have smoking prevalence data
+smoke_data %>% filter(Entity %in% c('Bhutan', 'Brunei', 'Monaco'))
+
+#filter out rows to calculate the change in the time span of 2010 to 2018 
+#and remove Bhutan and Monaco too
+policy_data2 <- policy_data2 %>% 
+  filter(year %in% c(2010, 2018)) %>% 
+  filter(!country %in% c('Bhutan', 'Monaco'))
+
+policy_change_data <- policy_data2 %>% 
+  group_by(country) %>% 
+  mutate(ban_policy_change = ban_policy - lag(ban_policy),
+         tax_policy_change = tax_policy - lag(tax_policy),
+         support_policy_change = support_policy - lag(support_policy)) %>%
+  filter(year == 2018) %>% 
+  select(c(country, country_code, contains('change')))
+
+
+#smoke_data cleaning
+smoke_data = smoke_data %>% 
+  rename(country = Entity, year = Year,
+         prevalence_rate = `Prevalence of current tobacco use (% of adults)`)
+
+#find NA values in smoke_data
+smoke_data %>% is.na() %>% sum()
+smoke_data[!complete.cases(smoke_data), ]   #contains Regional data
+
+#filter the data for the time frame considered
+smoke_data2 <- smoke_data %>% filter(year %in% c(2010, 2018)) 
+
+#prevalence_rate - lag(prevalence_rate) gives the running difference
+smoke_change_data <- smoke_data %>% 
+  filter(year %in% c(2010, 2018)) %>%
+  mutate(prevalence_rate_change = prevalence_rate - lag(prevalence_rate)) %>%
+  filter(year == 2018) %>% 
+  select(c(country, Code, prevalence_rate_change))
+
+#for_continent dataframe contains continent as a variable.
+#We use it for Between continent analysis
+for_continent <- for_continent %>% 
+  rename(country = Entity, country_code = Code, 
+         continent = Continent, year = Year...3) %>%
+  select(country, country_code,  year, continent)
+
+#filling in the missing values in the continent column
+for_continent <- for_continent %>% 
+  group_by(country) %>% 
+  fill(continent, .direction = 'downup')
+
+#Extract the year for which data is reported for all countries
+length(unique(for_continent$country))
+for_continent %>% group_by(year) %>% count() %>% filter(n == 300) #2015
+
+for_continent <- for_continent %>% filter(year == 2015)
+
+#Gathering the data for policy change and change in smoke percentage
+policy_smoke <- policy_change_data %>% 
+  left_join(smoke_change_data, by = 'country') %>%
+  select(-Code)
+
+policy_smoke <- policy_smoke %>% 
+  left_join(for_continent, by = 'country') %>%
+  select(-c(country_code.y, year)) %>% 
+  rename(country_code = country_code.x) %>%
+  select(c(country, country_code, continent), everything())
+
+#Final dataset also consists of policies that were adopted 
+#during the start of the time frame
+policy_smoke <- policy_smoke %>% 
+  left_join(policy_data2 %>% filter(year == 2010), by = 'country') %>%
+  select(-c(country_code.y, year)) %>%
+  rename(country_code = country_code.x,
+         initial_ban_policy = ban_policy,
+         initial_support_policy = support_policy,
+         initial_tax_policy = tax_policy)
+```
+
+
+Here is the description of the final dataset policy_smoke:  
+- country: name of the country considered  
+- ban_policy_change: Change in 'bans on advertising policy' over the span of 8 years  
+- tax_policy_change: Change in 'National Tax policy' over the span of 8 years  
+- support_policy_change: Change in 'National support policy' over the span of 8 years  
+- prevalence_rate_change: Percentage point change of smoking population over the span of 8.
+
+There are `r nrow(policy_smoke)` countries in the final dataset, and `r ncol(policy_smoke)` variables that include the level of change in each policy of these countries, as well as the initial level of each policy.  
+
+In the final dataset, the initial implementation level of each smoking control policy is also taken into account. This is important as the initial level of implementation can significantly impact the smoking prevalence rate of change. For instance, if a country has a high implementation level (e.g., 4) for three policies in 2010, it suggests strict control over smoking. As a result, the smoking prevalence rate of change in this country may be comparatively lower than that of countries with lower implementation levels (e.g., 2) for the same policies, indicating relatively relaxed smoking control measures.
+
+
+
+
+# Exploratory Data Analysis and Visualization{#sec:eda}
+
+In table \ref{tab:cw}, the smoking prevalence rate in the world is around `r round(smoke_change_data$prevalence_rate_change[smoke_change_data$country == 'World'],2)`, indicating a 4.35% decrease in smoking prevalence rate globally.
+
+```{r, eval = TRUE, echo = TRUE}
+#What is the global change in smoking prevalence?
+smoke_change_data %>% filter(country == 'World') %>% 
+kable(caption = '\\label{tab:cw} The change in smoking prevalence rate of the world') %>%
+  kable_styling(font_size = 10, latex_options = "hold_position")
+```
+
+
+
+
+Figure \ref{fig:csc} shows the histogram which illustrates the smoking prevalence rate of change in South America is around `r round(median(policy_smoke$prevalence_rate_change[policy_smoke['continent'] == 'South America'], na.rm = TRUE), 2)`%. Therefore, South America is the continent that has the most decline in the smoking population percentage, far beyond the global average level.
+
+```{r, echo = TRUE, eval = TRUE, out.width = '80%', fig.align = "center", fig.cap = "\\label{fig:csc} Comparison of smoking percentage decline among the continents.", fig.pos = "H"}
+
+#What is the change in smoking percentage across continents?
+policy_smoke %>% group_by(continent) %>% 
+  summarise(mean_change = mean(prevalence_rate_change, na.rm = T),
+                          median_change = median(prevalence_rate_change, na.rm = T),
+                          n = n()) %>%
+  ggplot(aes(x = fct_reorder(continent, mean_change), y= mean_change)) +
+  geom_col(color = 'black', fill = 'white') +
+  geom_text(aes(label = paste(round(mean_change, 2), '%')),
+            position = position_dodge(width = 0.9), vjust = -0.5) +
+  labs(x = "Continents", y = 'Percentage point change',
+       title = 'Average smoking rate decline across continents') 
+  
+
+##South America had the highest average decline in smoking percentage.
+
+```
+
+
+
+The research question aims to investigate the impact of three policies (bans on tobacco advertising, taxes on cigarettes, and support to quit smoking) on the smoking prevalence rate. Our initial assumption was that these policies would help reduce the smoking prevalence rate. However, during the data wrangling process, it is found that the smoking prevalence rate change for countries with no change in policies and policies with no effect was similar to that of countries with policy changes.  
+
+Table \ref{tab:summaries} demonstrates summary statistics on the smoking prevalence rate of change in the countries that had no change in three policies. The median of smoking prevalence rate of change is around `r round(policy_smoke %>% filter((ban_policy_change == 0) & (tax_policy_change == 0) & (support_policy_change == 0)) %>%ungroup() %>% select(prevalence_rate_change) %>% summarise(median_change = median(prevalence_rate_change, na.rm  =TRUE)), 2)`%, which is almost as much as the global average level of reduction in the smoking prevalence rate.
+
+```{r, eval = TRUE, echo = TRUE}
+#What are the countries who had no change in policies and
+#what is summary for change in smoking rates for these countries?
+
+policy_smoke %>% filter((ban_policy_change == 0) & (tax_policy_change == 0) &
+                          (support_policy_change == 0)) %>%
+  ungroup() %>% select(prevalence_rate_change) %>% summary() %>% 
+kable(caption = '\\label{tab:summaries} Summary statistics 
+      on the smoking prevalence rate of change on the countries that
+      had no change in policies ') %>%
+  kable_styling(font_size = 10, latex_options = "hold_position")
+
+```
+
+
+```{r, eval = TRUE, fig.width = 13, fig.align = "center", fig.cap = "\\label{fig:resids} Boxplots of change in smoking prevalence rate across all changes in tax policies(left), ban on advertisement(middle) and support policies(right).", fig.pos = "H", echo = TRUE}
+
+p1 <- policy_smoke %>% filter(!is.na(tax_policy_change)) %>%
+  ggplot(aes(x = as.factor(tax_policy_change), y = prevalence_rate_change)) +
+  geom_boxplot() +
+  labs(x = 'Change in Tax policy', y = 'Percentage point change') +
+  theme_bw()
+
+
+p2 <- policy_smoke %>%
+  ggplot(aes(x = as.factor(ban_policy_change), y = prevalence_rate_change)) +
+  geom_boxplot() +
+  labs(x = 'Change in Bans on advertisement policy', y = 'Percentage point change') +
+  theme_bw()
+
+
+
+p3 <- policy_smoke %>%
+  ggplot(aes(x = as.factor(support_policy_change), y = prevalence_rate_change)) +
+  geom_boxplot() +
+  labs(x = 'Change in policies for Support to quit smoking', y = 'Percentage point change') +
+  theme_bw()
+
+grid.arrange(p1, p2, p3, ncol = 3)
+
+```
+Figure \ref{fig:resids} illustrates the boxplots of percentage change on each level against the change on each of the smoking control policies. The initial impression of the plots is that average change in smoking prevalence seems to be constant across all changes in tax policies.There are some outliers in the plots across ban policies. Overall, again there seems to be considerable overlap between the levels, except level -2, but since this has only one data point it can be treated as an outlier. Factor Level 2 for the support variable seems to be, on average, better than other levels.
+
+ To glean more information, the plot that refers to support policy in figure \ref{fig:resids} could be faceted on the basis of initial policy value. This allows better comparison within a group.
+
+
+```{r, eval = TRUE, echo=TRUE, fig.align='center', fig.cap= "\\label{fig:support_facet} Boxplots of change in smoking prevalence rate across all changes in support policy faceted w.r.t initial policy value."}
+
+policy_smoke %>% 
+  ggplot(aes(x = as.factor(support_policy_change), y = prevalence_rate_change)) +
+  geom_boxplot() +
+  facet_wrap(~initial_support_policy) +
+  labs(x = 'Change in support policy', y = 'Prevalence rate change') +
+  theme_bw()
+
+
+```
+
+
+
+The plot in figure \ref{fig:support_facet} that stands out the most is the upper right one with initial policy value as 3. A +2 change in policy means that the support at the end of time frame was 5 and average decline for these countries was the highest. This gives one an estimate of the effect of this policy on smoking prevalence rate.
+
+# Conclusions on EDA {#sec:con}
+Through the above exploratory data analysis and visualization, we found that South America had the largest decrease in smoking prevalence rate from 2010 to 2018. However, we did not find any initial impression of association between the smoking prevalence rate of change and 'Bans on tobacco advertising', 'Taxes on tobacco products' policies. 'Change in support' does seem to have some effect but average effect is yet to be confirmed. Empirical evidence in favor or against the effect of these policies will be seen in the formal data analysis file.
